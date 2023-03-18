@@ -12,3 +12,14 @@ edge = Gst.ElementFactory.make("edgetv")
 videoconvert2 = Gst.ElementFactory.make("videoconvert")
 ximagesink = Gst.ElementFactory.make("ximagesink")
 
+pipeline.add(src)
+pipeline.add(videoconvert1)
+pipeline.add(edge)
+pipeline.add(videoconvert2)
+pipeline.add(ximagesink)
+
+src.link(videoconvert1)
+videoconvert1.link(edge)
+edge.link(videoconvert2)
+videoconvert2.link(ximagesink)
+
