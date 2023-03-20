@@ -1,7 +1,6 @@
 import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst, GObject
-import cv2
 
 Gst.init(None)
 
@@ -23,3 +22,9 @@ videoconvert1.link(edge)
 edge.link(videoconvert2)
 videoconvert2.link(ximagesink)
 
+pipeline.set_state(Gst.State.PLAYING)
+
+bus = pipeline.get_bus()
+msg = bus.timed_pop_filtered(Gst.CLOCK_TIME_NONE, Gst.MessageType.EOS)
+
+pipeline.set_state(Gst.State.NULL)
